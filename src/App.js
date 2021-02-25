@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  state = {
+    images: [],
+    error: null
+  }
+
+  handleRequest = async (ev) => {
+
+    const url = `https://najib-aia-backend.herokuapp.com/flickr?tags=man`
+
+    const request = await fetch(url);
+    const response = await request.json();
+
+    this.setState({ images: response.photos.photo })
+    console.log(this.state.images)
+  }
+
+  componentDidMount() {
+    this.handleRequest()
+  }
+
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
 }
 
 export default App;
