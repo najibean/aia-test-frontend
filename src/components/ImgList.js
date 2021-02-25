@@ -1,21 +1,23 @@
 import React from 'react'
-
+import '../style/ImgList.css'
 
 const ImgList = (props) => {
     // console.log(props)
     return (
-        <div>
-            { props.images.map(image => {
-                let srcPath = 'https://farm' + image.farm + '.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg';
+        <div className="container">
+            <div className="row">
+                {props.images.map(image => {
+                    let srcPath = 'https://farm' + image.farm + '.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg';
 
-                // return <p key={image.id}>{srcPath}</p>
-
-                return (
-                    <div key={image.id}>
-                        <img src={srcPath} alt={image.farm} />
-                    </div>
-                )
-            })}
+                    return (
+                        <div key={image.id} className="col-md-4" style={{ marginBottom: "2rem" }} >
+                            <div className="imageList__container">
+                                <img className="imageList__image" src={srcPath} alt={image.farm} />
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }

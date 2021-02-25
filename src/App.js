@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css';
+// import './App.css';
 import ImgList from './components/ImgList';
 import ImgSearch from './components/ImgSearch';
 
@@ -13,20 +13,32 @@ class App extends React.Component {
   handleRequest = async (ev) => {
     ev.preventDefault()
 
-    const url = `https://najib-aia-backend.herokuapp.com/flickr?tags=indonesia`
+    const searchTerm = ev.target.elements.searchValue.value
+
+    const url = `https://najib-aia-backend.herokuapp.com/flickr?tags=${searchTerm}`
 
     const request = await fetch(url);
     const response = await request.json();
 
-    this.setState({ images: response.photos.photo })
-    // console.log(this.state.images)
+    if (!searchTerm) {
+      this.setState({ error: "Please provide a value" })
+    } else {
+      this.setState({ images: response.photos.photo, error: null })
+    }
+
+    console.log(searchTerm)
+    console.log(this.state.images)
   }
 
   render() {
     return (
       <div>
         <ImgSearch handleRequest={this.handleRequest} />
-        <ImgList images={this.state.images} />
+        {
+          this.state.error !== null ?
+            <div style={{ color: "#fff", textAlign: "center" }}>{this.state.error}</div> :
+            <ImgList images={this.state.images} />
+        }
 
       </div>
     )
