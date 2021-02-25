@@ -6,8 +6,10 @@
 }
 
 .imageList__image {
-    width: auto;
-    height: auto;
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .image__details {
